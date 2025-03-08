@@ -791,11 +791,16 @@
         
         // Initialize the app on load
         window.addEventListener('DOMContentLoaded', () => {
-            checkLoginState();
-            initializeProducts();
-            filteredProducts = [...products];
-            navigateTo('home');
-            updateCartCount();
+            try {
+                checkLoginState();
+                initializeProducts();
+                filteredProducts = [...products];
+                navigateTo('home');
+                updateCartCount();
+            } catch (e) {
+                console.error(e);
+                navigateTo('home');
+            }
         });
         
         // Initialize Products
