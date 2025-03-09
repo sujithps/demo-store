@@ -645,7 +645,7 @@
             </button>
             
             <div class="nav-links" id="nav-links">
-                <a href="#" id="home-link">Home</a>
+                <a href="#" class="home-link">Home</a>
                 <a href="#" id="cart-link">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count" id="cart-count">0</span>
@@ -673,7 +673,7 @@
         const cartCountElement = document.getElementById('cart-count');
         const notification = document.getElementById('notification');
         const logoLink = document.getElementById('logo-link');
-        const homeLink = document.getElementById('home-link');
+        const homeLinks = document.getElementsByClassName('home-link');
         const cartLink = document.getElementById('cart-link');
         const accountLink = document.getElementById('account-link');
         const searchInput = document.getElementById('search-input');
@@ -710,11 +710,14 @@
             e.preventDefault();
             navigateTo('home');
         });
-        
-        homeLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            navigateTo('home');
-        });
+
+        for (let i = 0; i < homeLinks.length; i++) {
+            homeLinks[i].addEventListener('click', (e) => {
+                console.log("Clicked!!!")
+                e.preventDefault();
+                navigateTo('home');
+            });
+        }
         
         cartLink.addEventListener('click', (e) => {
             e.preventDefault();
@@ -1235,6 +1238,7 @@
             
             mainContent.innerHTML = `
                 <div class="product-detail">
+                    <button class="btn btn-secondary" id="home-link"> &lt;</button>
                     <div class="product-detail-image">
                         <img src="${product.image}" alt="${product.name}">
                     </div>
@@ -1286,6 +1290,11 @@
             document.getElementById('add-to-cart-detail').addEventListener('click', () => {
                 const quantity = parseInt(quantityInput.value);
                 addToCart(product.id, quantity);
+            });
+
+            document.getElementById('home-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                navigateTo('home')
             });
         }
         
